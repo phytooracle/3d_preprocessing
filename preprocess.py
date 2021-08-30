@@ -3,9 +3,12 @@ import json
 from utils import *
 
 def get_path_dict(path,outpath):
+    if path[-1] == '/':
+        path = path[:-1]
+    
     pass_id = os.listdir(path)[0].split('/')[-1].split('_')[0]
     folder_name = path.split('/')[-1]
-
+    
     if folder_name not in outpath:
         outpath = os.path.join(outpath,folder_name)
         if not os.path.exists(outpath):
