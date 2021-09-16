@@ -27,16 +27,24 @@ def downsample_pcd(pcd,voxel_size=10):
     print(f":: Downsampling info: full-size: {pcd} down-sampled-size: {pcd_down}")
     return pcd_down
 
-def rotate_pcd(pcd ,rotation_theta=90):
+def rotate_pcd(pcd ,rotation_theta=90, center_pcd=None):
 
     theta = np.radians(rotation_theta)
 
-    min_x, min_y, min_z = pcd.get_min_bound()
-    max_x, max_y, max_z = pcd.get_max_bound()
+    if center_pcd is not None:
+        min_x, min_y, min_z = center_pcd.get_min_bound()
+        max_x, max_y, max_z = center_pcd.get_max_bound()
 
-    center_x = abs(max_x - min_x)/2
-    center_y = abs(max_y - min_y)/2
-    center_z = abs(max_z - min_z)/2
+        center_x = abs(max_x - min_x)/2
+        center_y = abs(max_y - min_y)/2
+        center_z = abs(max_z - min_z)/2
+    else:
+        min_x, min_y, min_z = pcd.get_min_bound()
+        max_x, max_y, max_z = pcd.get_max_bound()
+
+        center_x = abs(max_x - min_x)/2
+        center_y = abs(max_y - min_y)/2
+        center_z = abs(max_z - min_z)/2
 
     rotation_matrix = np.array([[np.cos(theta), -np.sin(theta), 0],
                 [np.sin(theta), np.cos(theta), 0],
@@ -66,7 +74,7 @@ def merge_east_west_ransac(east,west,down_east,down_west):
     merged = o3d.geometry.PointCloud() 
     merged.points = o3d.utility.Vector3dVector(np.concatenate([east_points,west_points]))
 
-    return merged,merged_down
+    return merged,merged_down,new_east,new_east_down
 
 def save_pcd(pcd,path):
     o3d.io.write_point_cloud(path, pcd)
