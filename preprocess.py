@@ -76,12 +76,13 @@ def preprocess_single_pass(path,outpath,lid_path):
 
         merged_pcd,merged_down_pcd,new_east,new_east_down = merge_east_west_ransac(east_pcd,west_pcd,down_east_pcd,down_west_pcd)
 
-        merged_down_pcd = rotate_pcd(merged_down_pcd,90)
-        merged_pcd = rotate_pcd(merged_pcd,90)
         new_east = rotate_pcd(new_east,90,merged_down_pcd)
         new_west = rotate_pcd(west_pcd,90,merged_down_pcd)
         new_east_down = rotate_pcd(new_east_down,90,merged_down_pcd)
         new_west_down = rotate_pcd(down_west_pcd,90,merged_down_pcd)
+        
+        merged_down_pcd = rotate_pcd(merged_down_pcd,90)
+        merged_pcd = rotate_pcd(merged_pcd,90)
 
         if metadata['gantry_system_variable_metadata']['scanIsInPositiveDirection'] == "False":
             merged_down_pcd = merged_down_pcd.translate([0,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
