@@ -16,7 +16,7 @@ def get_args():
     
     parser.add_argument('-o',
                         '--output',
-                        help='Path to the directory that the results for the given single pass will be save. If it does not exist, it will be created. The name of this folder should be the same as the name of the input folder corresponding to the 3d pass.',
+                        help='Path to the preprocessing directory where the results for the given single pass will be save. Within the preprocessing directory, 7 directories will be created (if not exist) for east, west, merged and downsampled of them as well as the updated metadata.',
                         metavar='output',
                         type=str,
                         required=True)
