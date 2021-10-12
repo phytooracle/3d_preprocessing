@@ -32,3 +32,5 @@ RUN pip3 install numpy==1.19.1
 RUN pip3 install opencv-python==3.4.2.16
 RUN pip3 install opencv-contrib-python==3.4.2.16
 RUN pip3 install open3d==0.11.2
+
+ENTRYPOINT [ "python3", "/opt/main.py" ]
