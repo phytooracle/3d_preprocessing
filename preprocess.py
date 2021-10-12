@@ -8,11 +8,22 @@ def get_path_dict(path,outpath):
     
     pass_id = os.listdir(path)[0].split('/')[-1].split('_')[0]
     folder_name = path.split('/')[-1]
-    
-    if folder_name not in outpath:
-        outpath = os.path.join(outpath,folder_name)
-        if not os.path.exists(outpath):
-            os.mkdir(outpath)
+
+    east_outpath = os.path.join(outpath,"east",folder_name)
+    east_downsampled_outpath = os.path.join(outpath,"east_downsampled",folder_name)
+    west_outpath = os.path.join(outpath,"west",folder_name)
+    west_downsampled_outpath = os.path.join(outpath,"west_downsampled",folder_name)
+    merged_outpath = os.path.join(outpath,"merged",folder_name)
+    merged_downsampled_outpath = os.path.join(outpath,"merged_downsampled",folder_name)
+    meta_data_outpath = os.path.join(outpath,"metadata",folder_name)
+
+    os.makedirs(east_outpath,exist_ok=True)
+    os.makedirs(east_downsampled_outpath,exist_ok=True)
+    os.makedirs(west_outpath,exist_ok=True)
+    os.makedirs(west_downsampled_outpath,exist_ok=True)
+    os.makedirs(merged_outpath,exist_ok=True)
+    os.makedirs(merged_downsampled_outpath,exist_ok=True)
+    os.makedirs(meta_data_outpath,exist_ok=True)
 
     metadata_path = os.path.join(path,f"{pass_id}_metadata.json")
     west_png_path = os.path.join(path,f"{pass_id}__Top-heading-west_0_g.png")
@@ -20,15 +31,14 @@ def get_path_dict(path,outpath):
     west_ply_path = os.path.join(path,f"{pass_id}__Top-heading-west_0.ply")
     east_ply_path = os.path.join(path,f"{pass_id}__Top-heading-east_0.ply")
 
-    east_tr_ply_path = os.path.join(outpath,f"{pass_id}__Top-heading-east_transformed.ply")
-    west_tr_ply_path = os.path.join(outpath,f"{pass_id}__Top-heading-west_transformed.ply")
-    east_tr_downsampled_ply_path = os.path.join(outpath,f"{pass_id}__Top-heading-east_transformed_downsampled.ply")
-    west_tr_downsampled_ply_path = os.path.join(outpath,f"{pass_id}__Top-heading-west_transformed_downsampled.ply")
+    east_tr_ply_path = os.path.join(east_outpath,f"{pass_id}__Top-heading-east.ply")
+    west_tr_ply_path = os.path.join(west_outpath,f"{pass_id}__Top-heading-west.ply")
+    east_tr_downsampled_ply_path = os.path.join(east_downsampled_outpath,f"{pass_id}__Top-heading-east.ply")
+    west_tr_downsampled_ply_path = os.path.join(west_downsampled_outpath,f"{pass_id}__Top-heading-west.ply")
 
-    updated_metadata_path = os.path.join(outpath,f"{pass_id}_updated-metadata.json")
-    merged_ply_path = os.path.join(outpath,f"{pass_id}__Top-heading-merged.ply")
-    merged_downsampled_ply_path = os.path.join(outpath,f"{pass_id}__Top-heading-merged-downsampled.ply")
-    merged_png_path = os.path.join(outpath,f"{pass_id}__Top-heading-merged.png")
+    updated_metadata_path = os.path.join(meta_data_outpath,f"{pass_id}_updated-metadata.json")
+    merged_ply_path = os.path.join(merged_outpath,f"{pass_id}__Top-heading-merged.ply")
+    merged_downsampled_ply_path = os.path.join(merged_downsampled_outpath,f"{pass_id}__Top-heading-merged.ply")
 
     path_dict = {}
     path_dict['metadata_path'] = metadata_path
@@ -38,7 +48,6 @@ def get_path_dict(path,outpath):
     path_dict['east_ply_path'] = east_ply_path
     path_dict['merged_ply_path'] = merged_ply_path
     path_dict['merged_downsampled_ply_path'] = merged_downsampled_ply_path
-    path_dict['merged_png_path'] = merged_png_path
     path_dict['updated_metadata_path'] = updated_metadata_path
     path_dict['pass_id'] = pass_id
     path_dict['folder_name'] = folder_name
@@ -67,7 +76,7 @@ def preprocess_single_pass(path,outpath,lid_path):
     print(f":: Scan start coordinate (Gantry): {start_point_gantry}")
     print(f":: Scan start coordinate (UTM-GPS): {easting},{northing}")
 
-    if not os.path.exists(path_dict['merged_png_path']) or not os.path.exists(path_dict['merged_ply_path']):
+    if not os.path.exists(path_dict['merged_ply_path']):
         
         west_pcd = load_pcd(path_dict['west_ply_path'])
         east_pcd = load_pcd(path_dict['east_ply_path'])
@@ -109,13 +118,12 @@ def preprocess_single_pass(path,outpath,lid_path):
         save_pcd(new_east_down,path_dict['east_tr_downsampled_ply_path'])
         save_pcd(new_west_down,path_dict['west_tr_downsampled_ply_path'])
         
-        merged_png = merge_png_files(path_dict['west_png_path'],path_dict['east_png_path'],get_boundings_pcd(down_west_pcd),get_boundings_pcd(down_east_pcd),metadata)
-        save_png(path_dict['merged_png_path'],merged_png)
+        
+        
 
     else:
         merged_down_pcd = load_pcd(path_dict['merged_downsampled_ply_path'])
         boundaries = get_boundings_pcd(merged_down_pcd)
-        merged_png = load_png(path_dict['merged_png_path'],1)
             
     processed_meta_dict = {}
     processed_meta_dict['folder_name'] = path_dict['folder_name']
