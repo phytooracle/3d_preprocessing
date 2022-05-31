@@ -33,4 +33,4 @@ RUN pip3 install opencv-python==3.4.2.16
 RUN pip3 install opencv-contrib-python==3.4.2.16
 RUN pip3 install open3d==0.11.2
 
-ENTRYPOINT [ "/usr/bin/python3", "/opt/main.py" ]
+ENTRYPOINT [ "/usr/local/bin/python3", "/opt/main.py" ]
