@@ -59,7 +59,7 @@ def translate_pcd(pcd,x,y,z):
     return transformed_pcd
 
 def merge_east_west_ransac(east,west,down_east,down_west):
-    tr = execute_manual_location_based_RANSAC(down_east,down_west,400,coefs=[5,5,0.1,0.5])
+    tr = execute_manual_location_based_RANSAC(down_east,down_west,400,coefs=[5,100,0.1,0.5])
     
     new_east_down = translate_pcd(down_east,tr[0],tr[1],tr[2])
     new_east = translate_pcd(east,tr[0],tr[1],tr[2])
