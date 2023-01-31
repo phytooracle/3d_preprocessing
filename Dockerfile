@@ -27,7 +27,7 @@ RUN apt-get install -y --fix-missing libgdal-dev
 RUN pip3 install cython
 RUN pip3 install --upgrade cython
 
-RUN pip3 install scikit-learn
+RUN pip3 install sklearn
 RUN pip3 install setuptools-scm==6.0.1
 RUN pip3 install pyproj==1.9.6
 RUN pip3 install numpy==1.19.1
