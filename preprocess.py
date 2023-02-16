@@ -98,7 +98,7 @@ def preprocess_single_pass(path,outpath,lid_path):
             merged_pcd = merged_pcd.translate([0,float(metadata['gantry_system_variable_metadata']['position x [m]'])/(8.904483-7.964989)*1000,0])
             new_east = new_east.translate([0,float(metadata['gantry_system_variable_metadata']['position x [m]'])/(8.904483-7.964989)*1000,0])
             new_west = new_west.translate([0,float(metadata['gantry_system_variable_metadata']['position x [m]'])/(8.904483-7.964989)*1000,0])
-            new_east_down = new_east_down.translate([0,float(metadata['gantry_system_variable_metadata']['position x [m]']))/(8.904483-7.964989)*1000,0])
+            new_east_down = new_east_down.translate([0,float(metadata['gantry_system_variable_metadata']['position x [m]'])/(8.904483-7.964989)*1000,0])
             new_west_down = new_west_down.translate([0,float(metadata['gantry_system_variable_metadata']['position x [m]'])/(8.904483-7.964989)*1000,0])
         else:
             merged_down_pcd = merged_down_pcd.translate([22280.82692587-135,float(metadata['gantry_system_variable_metadata']['position x [m]'])/(8.904483-7.964989)*1000,0])
