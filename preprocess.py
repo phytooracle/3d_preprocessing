@@ -104,12 +104,12 @@ def preprocess_single_pass(path,outpath,lid_path):
             #dx = 1200 - float(metadata['gantry_system_variable_metadata']['position z [m]'])
             #22280.82692587-
             dx = 135+0.845*(1083-float(metadata['gantry_system_variable_metadata']['position z [m]']))
-            merged_down_pcd = merged_down_pcd.translate([dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
-            merged_pcd = merged_pcd.translate([dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
-            new_east = new_east.translate([dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
-            new_west = new_west.translate([dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
-            new_east_down = new_east_down.translate([dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
-            new_west_down = new_west_down.translate([dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
+            merged_down_pcd = merged_down_pcd.translate([22200.82692587-dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
+            merged_pcd = merged_pcd.translate([22200.82692587-dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
+            new_east = new_east.translate([22200.82692587-dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
+            new_west = new_west.translate([22200.82692587-dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
+            new_east_down = new_east_down.translate([22200.82692587-dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
+            new_west_down = new_west_down.translate([22200.82692587-dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
         
         boundaries = get_boundings_pcd(merged_down_pcd)
         print(":: Boundaries: ", boundaries)
