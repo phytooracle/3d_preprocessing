@@ -101,15 +101,17 @@ def preprocess_single_pass(path,outpath,lid_path):
             new_east_down = new_east_down.translate([0,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
             new_west_down = new_west_down.translate([0,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
         else:
-            #dx = 1200 - float(metadata['gantry_system_variable_metadata']['position z [m]'])
+            
             dx = 135+0.845*(1083-float(metadata['gantry_system_variable_metadata']['position z [m]']))
-            #22280.82692587
-            merged_down_pcd = merged_down_pcd.translate([23902.33376187-dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
-            merged_pcd = merged_pcd.translate([23902.33376187-dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
-            new_east = new_east.translate([23902.33376187-dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
-            new_west = new_west.translate([23902.33376187-dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
-            new_east_down = new_east_down.translate([23902.33376187-dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
-            new_west_down = new_west_down.translate([23902.33376187-dx,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
+            x_translation = 411.0301768990(metadata['gantry_system_variable_metadata']['position z [m]'])-726.3787721123
+            x_corrected = 23902.33376187-dx + x_translation
+            
+            merged_down_pcd = merged_down_pcd.translate([x_corrected,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
+            merged_pcd = merged_pcd.translate([x_corrected,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
+            new_east = new_east.translate([x_corrected,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
+            new_west = new_west.translate([x_corrected,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
+            new_east_down = new_east_down.translate([x_corrected,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
+            new_west_down = new_west_down.translate([x_corrected,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
         
         boundaries = get_boundings_pcd(merged_down_pcd)
         print(":: Boundaries: ", boundaries)
