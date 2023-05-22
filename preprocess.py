@@ -135,8 +135,8 @@ def preprocess_single_pass(path,outpath,lid_path):
     processed_meta_dict['gantry_start'] = {'x':start_point_gantry[0],'y':start_point_gantry[1]}
     processed_meta_dict['GPS_start'] = {'easting':easting,'northing':northing}
     processed_meta_dict['is_positive_dir'] = is_positive_dir
-    processed_meta_dict['height_offset'] = dx
-    processed_meta_dict['positive_direction_offset'] = 23902.33376187-dx
+#     processed_meta_dict['height_offset'] = dx
+#     processed_meta_dict['positive_direction_offset'] = 23902.33376187-dx
 
     possible_lids = get_possible_lid_pass((easting,northing),lids)
     if len(possible_lids)>0:
