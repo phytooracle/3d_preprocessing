@@ -103,8 +103,8 @@ def preprocess_single_pass(path,outpath,lid_path):
         else:
             
             dx = 135+0.845*(1083-float(metadata['gantry_system_variable_metadata']['position z [m]']))
-            x_translation = 411.0301768990(metadata['gantry_system_variable_metadata']['position z [m]'])-726.3787721123
-            x_corrected = 23902.33376187-dx + x_translation
+            x_translation = 411.0301768990*(float(metadata['gantry_system_variable_metadata']['position z [m]']))-726.3787721123
+            x_corrected = 23902.33376187-dx+x_translation
             
             merged_down_pcd = merged_down_pcd.translate([x_corrected,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
             merged_pcd = merged_pcd.translate([x_corrected,(float(metadata['gantry_system_variable_metadata']['position x [m]'])-3.798989)/(8.904483-7.964989)*1000,0])
