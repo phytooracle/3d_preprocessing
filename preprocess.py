@@ -82,8 +82,9 @@ def preprocess_single_pass(path,outpath,lid_path):
         east_pcd = load_pcd(path_dict['east_ply_path'])
         down_west_pcd = downsample_pcd(west_pcd)
         down_east_pcd = downsample_pcd(east_pcd)
+        ew_pass_offset = 61.2552933403*(float(metadata['gantry_system_variable_metadata']['position z [m]'])) - 7.8968761675
 
-        merged_pcd,merged_down_pcd,new_east,new_east_down = merge_east_west_ransac(east_pcd,west_pcd,down_east_pcd,down_west_pcd)
+        merged_pcd,merged_down_pcd,new_east,new_east_down = merge_east_west_ransac(east_pcd,west_pcd,down_east_pcd,down_west_pcd,down_east_pcd)
 
         new_east = rotate_pcd(new_east,90,merged_down_pcd)
         new_west = rotate_pcd(west_pcd,90,merged_down_pcd)
