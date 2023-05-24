@@ -54,15 +54,15 @@ def rotate_pcd(pcd ,rotation_theta=90, center_pcd=None):
 
     return rotated_pcd
 
-def translate_pcd(pcd,x,y,z):
-    transformed_pcd = copy.deepcopy(pcd).translate((x,y,z))
+def translate_pcd(pcd,x,y,z,offset):
+    transformed_pcd = copy.deepcopy(pcd).translate((x-offset,y,z))
     return transformed_pcd
 
 def merge_east_west_ransac(east,west,down_east,down_west,offset):
     tr = execute_manual_location_based_RANSAC(down_east,down_west,400,coefs=[5,5,0.1,0.5])
     
-    new_east_down = translate_pcd(down_east-offset,tr[0],tr[1],tr[2])
-    new_east = translate_pcd(east-offset,tr[0],tr[1],tr[2])
+    new_east_down = translate_pcd(down_east,tr[0],tr[1],tr[2],offset)
+    new_east = translate_pcd(east,tr[0],tr[1],tr[2],offset)
 
     east_points_down = np.array(new_east_down.points)
     west_points_down = np.array(down_west.points)
