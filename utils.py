@@ -55,7 +55,7 @@ def rotate_pcd(pcd ,rotation_theta=90, center_pcd=None):
     return rotated_pcd
 
 def translate_pcd(pcd,x,y,z,offset):
-    transformed_pcd = copy.deepcopy(pcd).translate((x-offset,y,z))
+    transformed_pcd = copy.deepcopy(pcd).translate((x,y-offset,z))
     return transformed_pcd
 
 def merge_east_west_ransac(east,west,down_east,down_west,offset):
