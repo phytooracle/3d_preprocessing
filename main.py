@@ -1,5 +1,6 @@
 import argparse
 import preprocess
+import numpy as np
 
 def get_args():
     
@@ -28,10 +29,31 @@ def get_args():
                         type=str,
                         required=True)
 
+    parser.add_argument('-ewn',
+                        '--east_west_negative',
+                        help='East-west NPY file containing average negative transformation.',
+                        metavar='ewn',
+                        type=str,
+                        required=True)
+
+    parser.add_argument('-ewp',
+                        '--east_west_positive',
+                        help='East-west NPY file containing average positive transformation.',
+                        metavar='ewp',
+                        type=str,
+                        required=True)
+
+    parser.add_argument('-ns',
+                        '--north_south',
+                        help='North-south NPY file containing average transformation.',
+                        metavar='ns',
+                        type=str,
+                        required=True)
+
     return parser.parse_args()
 
 def main():
     args = get_args()
-    preprocess.preprocess_single_pass(args.input,args.output,args.lids)
+    preprocess.preprocess_single_pass(args.input,args.output,args.lids, args.east_west_positive, args.east_west_negative, args.north_south)
 
 main()
