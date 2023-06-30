@@ -136,9 +136,6 @@ def preprocess_single_pass(path,outpath,lid_path, ew_trans_positive, ew_trans_ne
         save_pcd(new_east_down,path_dict['east_tr_downsampled_ply_path'])
         save_pcd(new_west_down,path_dict['west_tr_downsampled_ply_path'])
         
-        
-        
-
     else:
         merged_down_pcd = load_pcd(path_dict['merged_downsampled_ply_path'])
         boundaries = get_boundings_pcd(merged_down_pcd)
